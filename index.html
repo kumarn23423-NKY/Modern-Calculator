@@ -9,7 +9,7 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
     body {
@@ -17,89 +17,116 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: #1a1936;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
       padding: 20px;
     }
 
+    .container {
+      position: relative;
+    }
+
+    /* Decorative background glowing circles */
+    .container::before,
+    .container::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(50px);
+      z-index: -1;
+    }
+
+    .container::before {
+      width: 180px;
+      height: 180px;
+      background: #4facfe;
+      top: -40px;
+      left: -40px;
+    }
+
+    .container::after {
+      width: 180px;
+      height: 180px;
+      background: #00f2fe;
+      bottom: -40px;
+      right: -40px;
+    }
+
     .calculator {
-      background: #25244a;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 36px;
-      padding: 30px 24px 24px 24px;
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
-      width: 380px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      background: rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 24px;
+      padding: 24px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+      width: 340px;
     }
 
-    /* Header Section */
-    .header {
+    /* Header with Name */
+    .calculator-header {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
 
-    .header h1 {
+    .calculator-header h2 {
       color: #ffffff;
-      font-size: 1.3rem;
-      font-weight: 700;
+      font-size: 1.1rem;
+      font-weight: 600;
       letter-spacing: 0.5px;
-      margin-bottom: 4px;
+      margin-bottom: 2px;
     }
 
-    .header .author-title {
-      color: #e5935c;
-      font-size: 0.75rem;
+    .calculator-header p {
+      color: #00f2fe;
+      font-size: 0.7rem;
       font-weight: 700;
       letter-spacing: 2px;
       text-transform: uppercase;
     }
 
-    /* Display Screen */
     .display {
-      width: 100%;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
 
     .display input {
       width: 100%;
-      height: 90px;
+      height: 70px;
       outline: none;
       border: none;
-      background: #1d1c3a;
-      border-radius: 20px;
+      background: rgba(0, 0, 0, 0.25);
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
       color: #ffffff;
-      font-size: 3rem;
-      font-weight: 400;
+      font-size: 2rem;
       text-align: right;
-      padding: 0 24px;
-      box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
+      padding: 0 20px;
+      letter-spacing: 1px;
+      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3);
     }
 
-    /* Buttons Grid */
     .buttons {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 14px;
-      width: 100%;
     }
 
     input[type="button"] {
-      height: 64px;
+      height: 60px;
       border: none;
       outline: none;
-      border-radius: 20px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.08);
       color: #ffffff;
-      font-size: 1.35rem;
-      font-weight: 600;
+      font-size: 1.25rem;
+      font-weight: 500;
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: all 0.2s ease-in-out;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
     }
 
     input[type="button"]:hover {
-      background: rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.2);
       transform: translateY(-2px);
     }
 
@@ -107,86 +134,78 @@
       transform: translateY(1px);
     }
 
-    /* Primary Accent Buttons */
-    .btn-ac {
-      background: linear-gradient(135deg, #ff7b6b 0%, #ff5252 100%) !important;
+    /* Action & Operator button styling */
+    .btn-action {
+      color: #ff6b6b !important;
+      background: rgba(255, 107, 107, 0.15) !important;
+    }
+
+    .btn-action:hover {
+      background: rgba(255, 107, 107, 0.3) !important;
+    }
+
+    .btn-operator {
+      color: #4facfe !important;
+      background: rgba(79, 172, 254, 0.15) !important;
+    }
+
+    .btn-operator:hover {
+      background: rgba(79, 172, 254, 0.3) !important;
+    }
+
+    .equal {
+      grid-column: span 2;
+      background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%) !important;
       color: #ffffff !important;
-      box-shadow: 0 6px 18px rgba(255, 90, 90, 0.35);
-    }
-
-    .btn-purple {
-      background: linear-gradient(135deg, #8f6cf7 0%, #7b52f5 100%) !important;
-      color: #ffffff !important;
-      box-shadow: 0 6px 18px rgba(130, 90, 245, 0.35);
-    }
-
-    .btn-equal {
-      background: linear-gradient(135deg, #ff9e59 0%, #ff7b3d 100%) !important;
-      color: #ffffff !important;
-      box-shadow: 0 6px 18px rgba(255, 135, 60, 0.4);
-    }
-
-    /* Footer Branding */
-    .footer-credit {
-      margin-top: 24px;
-      color: rgba(255, 255, 255, 0.5);
-      font-size: 0.8rem;
-      font-weight: 400;
-    }
-
-    .footer-credit strong {
-      color: #ffffff;
       font-weight: 600;
+      box-shadow: 0 4px 15px rgba(0, 242, 254, 0.4) !important;
+    }
+
+    .equal:hover {
+      box-shadow: 0 6px 20px rgba(0, 242, 254, 0.6) !important;
     }
   </style>
 </head>
 <body>
 
-  <div class="calculator">
-    <!-- Header with Name -->
-    <div class="header">
-      <h1>Calculator</h1>
-      <div class="author-title">NITISH KUMAR YADAV</div>
-    </div>
-
-    <!-- Display -->
-    <form name="calcForm" style="width: 100%;" onsubmit="return false;">
-      <div class="display">
-        <input type="text" id="display" placeholder="0" readonly>
+  <div class="container">
+    <div class="calculator">
+      <!-- Header with Name -->
+      <div class="calculator-header">
+        <h2>Calculator</h2>
+        <p>Nitish Kumar Yadav</p>
       </div>
 
-      <!-- Keypad -->
-      <div class="buttons">
-        <input type="button" value="AC" class="btn-ac" onclick="clearDisplay()">
-        <input type="button" value="DE" class="btn-purple" onclick="deleteChar()">
-        <input type="button" value="%" class="btn-purple" onclick="appendValue('%')">
-        <input type="button" value="÷" class="btn-purple" onclick="appendValue('/')">
+      <form name="calcForm" onsubmit="return false;">
+        <div class="display">
+          <input type="text" name="display" id="display" placeholder="0" readonly>
+        </div>
+        <div class="buttons">
+          <input type="button" value="AC" class="btn-action" onclick="clearDisplay()">
+          <input type="button" value="DE" class="btn-action" onclick="deleteChar()">
+          <input type="button" value="." class="btn-operator" onclick="appendValue('.')">
+          <input type="button" value="*" class="btn-operator" onclick="appendValue('*')">
 
-        <input type="button" value="7" onclick="appendValue('7')">
-        <input type="button" value="8" onclick="appendValue('8')">
-        <input type="button" value="9" onclick="appendValue('9')">
-        <input type="button" value="×" class="btn-purple" onclick="appendValue('*')">
+          <input type="button" value="7" onclick="appendValue('7')">
+          <input type="button" value="8" onclick="appendValue('8')">
+          <input type="button" value="9" onclick="appendValue('9')">
+          <input type="button" value="/" class="btn-operator" onclick="appendValue('/')">
 
-        <input type="button" value="4" onclick="appendValue('4')">
-        <input type="button" value="5" onclick="appendValue('5')">
-        <input type="button" value="6" onclick="appendValue('6')">
-        <input type="button" value="−" class="btn-purple" onclick="appendValue('-')">
+          <input type="button" value="4" onclick="appendValue('4')">
+          <input type="button" value="5" onclick="appendValue('5')">
+          <input type="button" value="6" onclick="appendValue('6')">
+          <input type="button" value="-" class="btn-operator" onclick="appendValue('-')">
 
-        <input type="button" value="1" onclick="appendValue('1')">
-        <input type="button" value="2" onclick="appendValue('2')">
-        <input type="button" value="3" onclick="appendValue('3')">
-        <input type="button" value="+" class="btn-purple" onclick="appendValue('+')">
+          <input type="button" value="1" onclick="appendValue('1')">
+          <input type="button" value="2" onclick="appendValue('2')">
+          <input type="button" value="3" onclick="appendValue('3')">
+          <input type="button" value="+" class="btn-operator" onclick="appendValue('+')">
 
-        <input type="button" value="00" onclick="appendValue('00')">
-        <input type="button" value="0" onclick="appendValue('0')">
-        <input type="button" value="." onclick="appendValue('.')">
-        <input type="button" value="=" class="btn-equal" onclick="calculate()">
-      </div>
-    </form>
-
-    <!-- Footer Credit -->
-    <div class="footer-credit">
-      Designed & built by <strong>Nitish Kumar Yadav</strong>
+          <input type="button" value="00" onclick="appendValue('00')">
+          <input type="button" value="0" onclick="appendValue('0')">
+          <input type="button" value="=" class="equal" onclick="calculate()">
+        </div>
+      </form>
     </div>
   </div>
 
@@ -194,11 +213,7 @@
     const display = document.getElementById('display');
 
     function appendValue(val) {
-      if (display.value === '0' && val !== '.') {
-        display.value = val;
-      } else {
-        display.value += val;
-      }
+      display.value += val;
     }
 
     function clearDisplay() {
@@ -212,18 +227,16 @@
     function calculate() {
       if (!display.value) return;
       try {
-        let expression = display.value.replace(/%/g, '/100');
-        display.value = Function('"use strict";return (' + expression + ')')();
+        display.value = Function('"use strict";return (' + display.value + ')')();
       } catch (e) {
         display.value = 'Error';
         setTimeout(clearDisplay, 1500);
       }
     }
 
-    // Keyboard controls
     document.addEventListener('keydown', (event) => {
       const key = event.key;
-      if (!isNaN(key) || ['+', '-', '*', '/', '.', '%'].includes(key)) {
+      if (!isNaN(key) || ['+', '-', '*', '/', '.'].includes(key)) {
         appendValue(key);
       } else if (key === 'Enter' || key === '=') {
         calculate();
@@ -236,9 +249,3 @@
   </script>
 </body>
 </html>
-
-
-
-
-
-
