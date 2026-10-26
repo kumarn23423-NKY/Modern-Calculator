@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modern Glassmorphism Calculator</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      padding: 20px;
+    }
+
+    .container {
+      position: relative;
+    }
+
+    /* Decorative background glowing circles */
+    .container::before,
+    .container::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(50px);
+      z-index: -1;
+    }
+
+    .container::before {
+      width: 180px;
+      height: 180px;
+      background: #4facfe;
+      top: -40px;
+      left: -40px;
+    }
+
+    .container::after {
+      width: 180px;
+      height: 180px;
+      background: #00f2fe;
+      bottom: -40px;
+      right: -40px;
+    }
+
+    .calculator {
+      background: rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+      width: 340px;
+    }
+
+    .display {
+      margin-bottom: 24px;
+    }
+
+    .display input {
+      width: 100%;
+      height: 70px;
+      outline: none;
+      border: none;
+      background: rgba(0, 0, 0, 0.25);
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+      font-size: 2rem;
+      text-align: right;
+      padding: 0 20px;
+      letter-spacing: 1px;
+      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    input[type="button"] {
+      height: 60px;
+      border: none;
+      outline: none;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      font-size: 1.25rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    input[type="button"]:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    input[type="button"]:active {
+      transform: translateY(1px);
+    }
+
+    /* Action & Operator button styling */
+    .btn-action {
+      color: #ff6b6b !important;
+      background: rgba(255, 107, 107, 0.15) !important;
+    }
+
+    .btn-action:hover {
+      background: rgba(255, 107, 107, 0.3) !important;
+    }
+
+    .btn-operator {
+      color: #4facfe !important;
+      background: rgba(79, 172, 254, 0.15) !important;
+    }
+
+    .btn-operator:hover {
+      background: rgba(79, 172, 254, 0.3) !important;
+    }
+
+    .equal {
+      grid-column: span 2;
+      background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%) !important;
+      color: #ffffff !important;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(0, 242, 254, 0.4) !important;
+    }
+
+    .equal:hover {
+      box-shadow: 0 6px 20px rgba(0, 242, 254, 0.6) !important;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="calculator">
+      <form name="calcForm" onsubmit="return false;">
+        <div class="display">
+          <input type="text" name="display" id="display" placeholder="0" readonly>
+        </div>
+        <div class="buttons">
+          <input type="button" value="AC" class="btn-action" onclick="clearDisplay()">
+          <input type="button" value="DE" class="btn-action" onclick="deleteChar()">
+          <input type="button" value="." class="btn-operator" onclick="appendValue('.')">
+          <input type="button" value="*" class="btn-operator" onclick="appendValue('*')">
+
+          <input type="button" value="7" onclick="appendValue('7')">
+          <input type="button" value="8" onclick="appendValue('8')">
+          <input type="button" value="9" onclick="appendValue('9')">
+          <input type="button" value="/" class="btn-operator" onclick="appendValue('/')">
+
+          <input type="button" value="4" onclick="appendValue('4')">
+          <input type="button" value="5" onclick="appendValue('5')">
+          <input type="button" value="6" onclick="appendValue('6')">
+          <input type="button" value="-" class="btn-operator" onclick="appendValue('-')">
+
+          <input type="button" value="1" onclick="appendValue('1')">
+          <input type="button" value="2" onclick="appendValue('2')">
+          <input type="button" value="3" onclick="appendValue('3')">
+          <input type="button" value="+" class="btn-operator" onclick="appendValue('+')">
+
+          <input type="button" value="00" onclick="appendValue('00')">
+          <input type="button" value="0" onclick="appendValue('0')">
+          <input type="button" value="=" class="equal" onclick="calculate()">
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const display = document.getElementById('display');
+
+    function appendValue(val) {
+      display.value += val;
+    }
+
+    function clearDisplay() {
+      display.value = '';
+    }
+
+    function deleteChar() {
+      display.value = display.value.toString().slice(0, -1);
+    }
+
+    function calculate() {
+      if (!display.value) return;
+      try {
+        // Safe evaluation of mathematical expression
+        display.value = Function('"use strict";return (' + display.value + ')')();
+      } catch (e) {
+        display.value = 'Error';
+        setTimeout(clearDisplay, 1500);
+      }
+    }
+
+    // Keyboard navigation support
+    document.addEventListener('keydown', (event) => {
+      const key = event.key;
+      if (!isNaN(key) || ['+', '-', '*', '/', '.'].includes(key)) {
+        appendValue(key);
+      } else if (key === 'Enter' || key === '=') {
+        calculate();
+      } else if (key === 'Backspace') {
+        deleteChar();
+      } else if (key === 'Escape') {
+        clearDisplay();
+      }
+    });
+  </script>
+</body>
+</html>
+
+
